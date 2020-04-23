@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Spotify from 'spotify-web-api-js';
+import userImg from './assets/user-solid.png';
 
 const spotifyWebApi = new Spotify();
 
@@ -10,10 +11,16 @@ class App extends Component {
     const params = this.getHashParams();
     this.state = {
       loggedIn: params.access_token ? true : false,
-      nowPlaying: {
-        name: 'Not Checked',
-        image: '',
-        artist: '',
+      myInfo: {
+        myName: '',
+        myImage: '',
+        myFollowers: 0,
+      },
+      myTracks: {
+        myTopTracks: [],
+      },
+      myArtists: {
+        myTopArtists: [],
       },
     };
     if (params.access_token) {
@@ -32,31 +39,76 @@ class App extends Component {
     return hashParams;
   }
 
-  getNowPlaying() {
-    spotifyWebApi.getMyCurrentPlaybackState().then((response) => {
-      console.log(response);
+  getMyInfo() {
+    spotifyWebApi.getMe().then((response) => {
       this.setState({
-        nowPlaying: {
-          name: response.item.name,
-          image: response.item.album.images[0].url,
-          artist: response.item.artists[0].name,
+        myInfo: {
+          myName: response.display_name,
+          myImage: response.images[0]
+            ? response.images[0].url
+            : 'https://image.flaticon.com/icons/svg/1077/1077114.svg',
+          myFollowers: response.followers.total,
         },
       });
     });
   }
 
+  getTopTracks() {
+    spotifyWebApi.getMyTopTracks().then((response) => {
+      this.setState({
+        myTracks: {
+          myTopTracks: response.items,
+        },
+      });
+    });
+  }
+
+  getTopArtists() {
+    spotifyWebApi.getMyTopArtists().then((response) => {
+      this.setState({
+        myArtists: {
+          myTopArtists: response.items,
+        },
+      });
+    });
+  }
+
+  componentDidMount() {
+    this.getMyInfo();
+    this.getTopTracks();
+    this.getTopArtists();
+  }
+
   render() {
     return (
       <div className='App'>
-        <a href='http://localhost:8888'>
-          <button>Login With Spotify</button>
-        </a>
-        <div>Now Playing: {this.state.nowPlaying.name}</div>
-        <div>By: {this.state.nowPlaying.artist}</div>
+        {this.state.loggedIn ? (
+          <a href='http://localhost:8888'>
+            <button>Login With Spotify</button>
+          </a>
+        ) : null}
         <div>
-          <img src={this.state.nowPlaying.image} style={{ width: 100 }} />
+          <img
+            src={this.state.myInfo.myImage}
+            style={{ width: 200, borderRadius: '50px' }}
+          />
         </div>
-        <button onClick={() => this.getNowPlaying()}>Check Now Playing</button>
+        <div>{this.state.myInfo.myName}</div>
+        <div>Followers: {this.state.myInfo.myFollowers}</div>
+        <div>tracks</div>
+        {this.state.myTracks.myTopTracks.map((tracks) => (
+          <div>
+            <img src={tracks.album.images[0].url} style={{ width: 100 }} />
+            <div>{tracks.name}</div>
+          </div>
+        ))}
+        <div>Artists</div>
+        {this.state.myArtists.myTopArtists.map((artists) => (
+          <div>
+            <img src={artists.images[0].url} style={{ width: 100 }} />
+            <div>{artists.name}</div>
+          </div>
+        ))}
       </div>
     );
   }
