@@ -14,7 +14,7 @@ class App extends Component {
       myInfo: {
         myName: '',
         myImage: '',
-        myFollowers: 0,
+        product: '',
       },
       myTracks: {
         myTopTracks: [],
@@ -47,7 +47,7 @@ class App extends Component {
           myImage: response.images[0]
             ? response.images[0].url
             : 'https://image.flaticon.com/icons/svg/1077/1077114.svg',
-          myFollowers: response.followers.total,
+          product: response.product,
         },
       });
     });
@@ -94,7 +94,9 @@ class App extends Component {
           />
         </div>
         <div>{this.state.myInfo.myName}</div>
-        <div>Followers: {this.state.myInfo.myFollowers}</div>
+        <div>
+          {this.state.myInfo.product === 'premium' ? 'PREMIUM' : 'FREE'}
+        </div>
         <div>tracks</div>
         {this.state.myTracks.myTopTracks.map((tracks) => (
           <div>
