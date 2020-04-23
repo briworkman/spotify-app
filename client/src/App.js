@@ -110,7 +110,7 @@ class App extends Component {
                   .then((response) => console.log(response))
               }
             >
-              Song Info
+              >
             </button>
           </div>
         ))}
