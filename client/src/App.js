@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
 import Spotify from 'spotify-web-api-js';
-import userImg from './assets/user-solid.png';
+import { Route, Link } from 'react-router-dom';
+import axios from 'axios';
 
 const spotifyWebApi = new Spotify();
 
@@ -15,6 +16,7 @@ class App extends Component {
         myName: '',
         myImage: '',
         product: '',
+        token: params.access_token,
       },
       myTracks: {
         myTopTracks: [],
@@ -55,6 +57,7 @@ class App extends Component {
 
   getTopTracks() {
     spotifyWebApi.getMyTopTracks().then((response) => {
+      console.log(response);
       this.setState({
         myTracks: {
           myTopTracks: response.items,
@@ -82,11 +85,9 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        {this.state.loggedIn ? (
-          <a href='http://localhost:8888'>
-            <button>Login With Spotify</button>
-          </a>
-        ) : null}
+        <a href='http://localhost:8888'>
+          <button>Login With Spotify</button>
+        </a>
         <div>
           <img
             src={this.state.myInfo.myImage}
@@ -102,6 +103,15 @@ class App extends Component {
           <div>
             <img src={tracks.album.images[0].url} style={{ width: 100 }} />
             <div>{tracks.name}</div>
+            <button
+              onClick={() =>
+                spotifyWebApi
+                  .getTrack(`${tracks.id}`)
+                  .then((response) => console.log(response))
+              }
+            >
+              Song Info
+            </button>
           </div>
         ))}
         <div>Artists</div>
