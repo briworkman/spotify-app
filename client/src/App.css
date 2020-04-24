@@ -41,3 +41,73 @@ div,
 button {
   margin: 15px;
 }
+
+.header {
+  display: flex;
+  justify-content: center;
+}
+
+.header-name {
+  font-size: 50px;
+  font-weight: 700;
+  color: white;
+  margin-top: -10px;
+}
+
+.no-header-img {
+  width: 150px;
+  height: 150px;
+  border: 3px solid white;
+  border-radius: 50%;
+}
+
+.no-header-img img {
+  width: 85px;
+  height: 100px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.titles {
+  color: white;
+  text-align: left;
+  margin-left: 15px;
+}
+
+.tracks-artists-container {
+  display: flex;
+  justify-content: center;
+  justify-content: space-evenly;
+}
+
+.left {
+  display: flex;
+}
+
+.left h4 {
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+.info {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  margin: 0;
+}
+
+.artist-img img {
+  border-radius: 50%;
+  height: 50px;
+}
+
+.chevron {
+  background-color: transparent;
+  border: transparent;
+  align-items: flex-end;
+}
+.chevron img {
+  width: 15px;
+  height: 10px;
+  align-items: flex-end;
+}
