@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import '../App.css';
 import Spotify from 'spotify-web-api-js';
 import userIcon from '../assets/user-solid.png';
-import chevronDown from '../assets/chevron.png';
 
 const spotifyWebApi = new Spotify();
 
@@ -16,7 +15,7 @@ class Profile extends Component {
         myName: '',
         myImage: '',
         product: '',
-        token: params.access_token,
+        followers: 0,
       },
       myTracks: {
         myTopTracks: [],
@@ -48,6 +47,7 @@ class Profile extends Component {
           myName: response.display_name,
           myImage: response.images[0] ? response.images[0].url : null,
           product: response.product,
+          followers: response.followers,
         },
       });
     });
@@ -55,7 +55,6 @@ class Profile extends Component {
 
   getTopTracks() {
     spotifyWebApi.getMyTopTracks().then((response) => {
-      console.log(response);
       this.setState({
         myTracks: {
           myTopTracks: response.items,
@@ -66,7 +65,6 @@ class Profile extends Component {
 
   getTopArtists() {
     spotifyWebApi.getMyTopArtists().then((response) => {
-      console.log(response);
       this.setState({
         myArtists: {
           myTopArtists: response.items,
@@ -84,9 +82,6 @@ class Profile extends Component {
   render() {
     return (
       <div className='App'>
-        <a href='http://localhost:8888'>
-          <button>Login With Spotify</button>
-        </a>
         <div className='header'>
           {this.state.myInfo.myImage ? (
             <div className='header-img'>
@@ -99,9 +94,9 @@ class Profile extends Component {
           )}
         </div>
         <h1 className='header-name'>{this.state.myInfo.myName}</h1>
-        <div>
-          {this.state.myInfo.product === 'premium' ? 'PREMIUM' : 'FREE'}
-        </div>
+        <a href='http://localhost:8888'>
+          <button className='login-button'>Login With Spotify</button>
+        </a>
         <div className='tracks-artists-container'>
           <div className='tracks'>
             <h2 className='titles'>My Top Tracks</h2>
@@ -112,9 +107,14 @@ class Profile extends Component {
                     src={tracks.album.images[0].url}
                     style={{ width: 50, height: 50 }}
                   />
-                  <h4>{tracks.name}</h4>
+                  <div className='album-info'>
+                    <h4>{tracks.name}</h4>
+                    <h5>
+                      {tracks.artists[0].name} • {tracks.album.name}
+                    </h5>
+                  </div>
                 </div>
-                <button
+                {/* <button
                   className='chevron'
                   onClick={() =>
                     spotifyWebApi
@@ -123,7 +123,7 @@ class Profile extends Component {
                   }
                 >
                   <img src={chevronDown} />
-                </button>
+                </button> */}
               </div>
             ))}
           </div>
@@ -131,20 +131,10 @@ class Profile extends Component {
             <h2 className='titles'>My Top Artists</h2>
             {this.state.myArtists.myTopArtists.map((artists) => (
               <div className='artist-img info'>
-                <div className='left'>
+                <div className='artist-left'>
                   <img src={artists.images[0].url} style={{ width: 50 }} />
                   <h4>{artists.name}</h4>
                 </div>
-                <button
-                  className='chevron'
-                  onClick={() =>
-                    spotifyWebApi
-                      .getArtist(`${artists.id}`)
-                      .then((response) => console.log(response))
-                  }
-                >
-                  <img src={chevronDown} />
-                </button>
               </div>
             ))}
           </div>

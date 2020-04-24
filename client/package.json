@@ -7,8 +7,12 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "react": "^16.13.1",
+    "react-collapse": "^5.0.1",
+    "react-collapsible": "^2.7.0",
     "react-dom": "^16.13.1",
+    "react-read-more-less": "^0.1.6",
     "react-scripts": "3.4.1",
+    "reactstrap": "^8.4.1",
     "spotify-web-api-js": "^1.2.0"
   },
   "scripts": {

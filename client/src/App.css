@@ -52,6 +52,7 @@ button {
   font-weight: 700;
   color: white;
   margin-top: -10px;
+  margin-bottom: 0;
 }
 
 .no-header-img {
@@ -66,6 +67,20 @@ button {
   height: 100px;
   margin-top: 20px;
   text-align: center;
+}
+
+.login-button {
+  background: transparent;
+  border: 2px solid white;
+  color: white;
+  text-decoration: none;
+  min-width: 160px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  border-radius: 30px;
+  padding: 10px 15px;
 }
 
 .titles {
@@ -84,7 +99,22 @@ button {
   display: flex;
 }
 
-.left h4 {
+.left h4,
+h5 {
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.left h5 {
+  color: rgb(155, 155, 155);
+  font-size: 14px;
+}
+
+.artist-left {
+  display: flex;
+}
+
+.artist-left h4 {
   margin-left: 20px;
   margin-top: 15px;
 }
@@ -110,4 +140,9 @@ button {
   width: 15px;
   height: 10px;
   align-items: flex-end;
+}
+
+.album-info {
+  line-height: 0;
+  text-align: left;
 }

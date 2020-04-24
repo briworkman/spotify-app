@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 import { Route, Link } from 'react-router-dom';
 import Profile from './components/Profile';
 
 function App() {
-  return <Profile />;
+  return (
+    <div>
+      <Profile />
+    </div>
+  );
 }
 
 export default App;
