@@ -146,3 +146,32 @@ h5 {
   line-height: 0;
   text-align: left;
 }
+
+.navigation {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  align-items: center;
+  width: 7%;
+  position: fixed;
+  bottom: -15px;
+  left: -15px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 0px 10px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: white;
+  line-height: 0;
+}
+
+.nav-link img {
+  margin-left: 28%;
+  margin-top: 20px;
+  height: 25px;
+}
