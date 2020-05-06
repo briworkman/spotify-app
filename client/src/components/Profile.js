@@ -114,16 +114,6 @@ class Profile extends Component {
                     </h5>
                   </div>
                 </div>
-                {/* <button
-                  className='chevron'
-                  onClick={() =>
-                    spotifyWebApi
-                      .getTrack(`${tracks.id}`)
-                      .then((response) => console.log(response))
-                  }
-                >
-                  <img src={chevronDown} />
-                </button> */}
               </div>
             ))}
           </div>
